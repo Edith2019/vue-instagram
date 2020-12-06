@@ -21,22 +21,23 @@ const getFeedsFromResponse = (response = {}) => {
 
 // console.log("getFeedfromrepsonse", getFeedsFromResponse)
 
-export const fetchData = async (username) => {
+export const fetchData = async (username, numberOfFeeds) => {
     let feeds;
     console.log("username", username)
 
     let response = await fetch(ENDPOINT.replace(":username", username));
-    // console.log(response.json())
-    // response = await response.text()
-    response = await response.json()
-    console.log(response)
+    console.log(ENDPOINT.replace(":username", username));
+
+    response = await response.json();
+    console.log("responser", response)
+    feeds = getFeedsFromResponse(response);
 
 
-    // response = await response.json()    // console.log(response.json())
+    console.log(Number(numberOfFeeds));
 
-    feeds = getFeedsFromResponse(response)
-    // console.log("response in dataserviceresponse", response)
-    console.log("feeds", feeds)
 
+    if (Number(numberOfFeeds) < feeds.length) {
+        feeds = feeds.slice(0, numberOfFeeds);
+    }
 
 }
