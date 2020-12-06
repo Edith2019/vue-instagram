@@ -13,7 +13,6 @@ import ListItem from "./ListItem";
 
 export default {
     name: "List",
-
     computed: {
         ...mapGetters(["feeds"]),
     },

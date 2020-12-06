@@ -16,7 +16,6 @@ export default {
         console.log("userN", feeds)
         commit(FETCH_DATA, feeds)
     },
-
     async [SET_CURRENT_USER]({ commit }, { username }) {
         console.log("setcurrentUser", { commit }, { username })
         commit(SET_CURRENT_USER, username)

@@ -33,10 +33,11 @@
 <script>
 export default {
     Name: "ListItem",
-    data() {
-        return {
-            item: Object,
-        };
+    props: {
+        item: {
+            type: Object,
+            default: () => ({}),
+        },
     },
 };
 </script>

@@ -21,7 +21,7 @@ const minimizeVideosData = (videos) => {
         const {
             is_videao: isVideo,
             thumbail_src: src,
-            edge__media_preview_like: { count },
+            edge__media_preview_like: count,
             taken_at_timestamp: date,
             edge_media_to_caption: {
                 edges:
@@ -52,30 +52,20 @@ const minimizePhotosData = (photos) => {
             thumbnail_src: src,
             id_video: isVideo,
             taken_at_timestamp: date,
-            edge_media_caption: {
+            edge_media_to_caption: {
                 edges: [
                     {
                         node: { text: caption }
-                    }
-
-                ]
-            }
-
+                    },
+                ],
+            },
         } = edge.node
         return {
-            count, src, isVideo, date, cpation: minimizeCaption(caption)
+            count, src, isVideo, date, caption: minimizeCaption(caption)
         }
     })
-
-
-
-
-
 }
 
-console.log(minimizePhotosData)
-
-console.log(minimizeVideosData)
 const getFeedsFromResponse = (response = {}) => {
     const {
         graphql: { user },
@@ -97,8 +87,9 @@ const getFeedsFromResponse = (response = {}) => {
 
         console.log("user", user)
 
-
-
+        const minimVideos = minimizeVideosData(videos);
+        const minimPhotos = minimizePhotosData(photos);
+        return [...minimVideos, ...minimPhotos].sort((a, b) => { b.time - a.time })
 
     }
 }
@@ -110,10 +101,14 @@ export const fetchData = async (username, numberOfFeeds) => {
     console.log("username", username)
 
     let response = await fetch(ENDPOINT.replace(":username", username));
+
+    console.log("typeof", typeof (response))
+
     console.log(ENDPOINT.replace(":username", username));
+    // console.log("responser", JSON.parse({ response }))
 
     response = await response.json();
-    console.log("responser", response)
+    // response = JSON.parse(response)
     feeds = getFeedsFromResponse(response);
 
     console.log("feeds", feeds)

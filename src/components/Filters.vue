@@ -1,5 +1,7 @@
 <template>
-    <v-container></v-container>
+    <div>
+        <v-chip> </v-chip>
+    </div>
 </template>
 
 <script>
