@@ -14,7 +14,30 @@ console.log(minimizeCaption)
 const minimizeVideosData = (videos) => {
     const { edges } = videos
     console.log("edges in video", edges)
-}
+    if (!edges) {
+        throw Error('bad data in minimizeVideo')
+    }
+    return edges.map((edge) => {
+        const {
+            is_videao: isVideo,
+            thumbail_src: src,
+            edge__media_preview_like: { count },
+            taken_at_timestamp: date,
+            edge_media_to_caption: {
+                edges:
+                [
+                    {
+                        node: { text: caption }
+                    },
+                ],
+            },
+        } = edge.node
+        return {
+            isVideo, src, count, date, caption: minimizeCaption(caption)
+        };
+    });
+
+};
 
 console.log(minimizeVideosData)
 const getFeedsFromResponse = (response = {}) => {
