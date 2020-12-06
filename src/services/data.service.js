@@ -13,7 +13,7 @@ const getFeedsFromResponse = (response = {}) => {
             edge_owner_to_timeline_media: photos,
         } = user
 
-        console.log(videos.user)
+        console.log("user.video", videos.user)
         console.log(photos.user)
 
     }
@@ -22,12 +22,14 @@ const getFeedsFromResponse = (response = {}) => {
 console.log("getFeedfromrepsonse", getFeedsFromResponse)
 
 export const fetchData = async (username) => {
-
+    let feeds;
     let response = await fetch(ENDPOINT.replace(':username', username))
     console.log("username", username)
 
     response = await response.json()
+    feeds = getFeedsFromResponse(response)
     console.log("response in dataserviceresponse", response)
+    console.log("feeds", feeds)
 
 
 }
