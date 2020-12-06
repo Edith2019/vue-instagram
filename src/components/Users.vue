@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { USERS } from "../consts";
 import { FETCH_DATA } from "../store/types";
 export default {
@@ -22,6 +22,10 @@ export default {
             users: USERS,
         };
     },
+    computed: {
+        ...mapGetters(["currentUser"]),
+    },
+
     methods: {
         ...mapActions([FETCH_DATA]),
     },
