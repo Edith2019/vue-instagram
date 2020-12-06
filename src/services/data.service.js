@@ -39,6 +39,42 @@ const minimizeVideosData = (videos) => {
 
 };
 
+
+const minimizePhotosData = (photos) => {
+    const { edges } = photos
+    if (!edges) {
+        throw Error("bad data in photos")
+    }
+
+    return edges.map(edge => {
+        const {
+            edge_liked_by: { count },
+            thumbnail_src: src,
+            id_video: isVideo,
+            taken_at_timestamp: date,
+            edge_media_caption: {
+                edges: [
+                    {
+                        node: { text: caption }
+                    }
+
+                ]
+            }
+
+        } = edge.node
+        return {
+            count, src, isVideo, date, cpation: minimizeCaption(caption)
+        }
+    })
+
+
+
+
+
+}
+
+console.log(minimizePhotosData)
+
 console.log(minimizeVideosData)
 const getFeedsFromResponse = (response = {}) => {
     const {
@@ -57,7 +93,7 @@ const getFeedsFromResponse = (response = {}) => {
         } = user
 
         console.log("user.video", videos)
-        console.log(photos.user)
+        console.log("photos", photos)
 
         console.log("user", user)
 
