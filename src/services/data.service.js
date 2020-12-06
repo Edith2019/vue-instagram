@@ -19,7 +19,7 @@ const getFeedsFromResponse = (response = {}) => {
     }
 }
 
-console.log("getFeedfromrepsonse", getFeedsFromResponse)
+// console.log("getFeedfromrepsonse", getFeedsFromResponse)
 
 export const fetchData = async (username) => {
     let feeds;
