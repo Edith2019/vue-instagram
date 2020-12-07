@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row no-gutters>
-            <slot
+            <!-- <slot
                 v-if="!feeds.length"
                 cols="12"
                 class="d-flex justify-end mb-12"
@@ -9,8 +9,12 @@
                 <v-col cols="12">
                     <NoData></NoData>
                 </v-col>
-            </slot>
-            <slot v-else>
+            </slot> -->
+
+            <v-col cols="12" class="d-flex justify-end mb-12">
+                <Filters></Filters>
+            </v-col>
+            <slot>
                 <v-col
                     v-for="feed in feeds"
                     :key="feed.src"
@@ -32,8 +36,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import NoData from "./NoData";
+// import NoData from "./NoData";
 import ListItem from "./ListItem";
+import Filters from "./Filters";
 
 export default {
     name: "List",
@@ -42,7 +47,8 @@ export default {
     },
     components: {
         ListItem,
-        NoData,
+        // NoData,
+        Filters,
     },
 };
 </script>

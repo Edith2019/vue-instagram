@@ -3,6 +3,7 @@
         <p>Select the user you want to see the feed</p>
         <v-chip
             v-for="user in users"
+            class="ma-2"
             :key="user"
             @click="fetch_data({ username: user })"
         >

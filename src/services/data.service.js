@@ -1,9 +1,9 @@
-import { ENDPOINT, MAX_CAPTION_LENGTH, FILTER_METHOD } from "../consts"
+import { ENDPOINT, MAX_CAPTION_LENGTH, FILTER_METHODS } from "../consts"
 
 
 // Display 150 Char and replace the rest by...
 const minimizeCaption = (caption) => {
-    const length = caption.lenght;
+    const length = caption.length;
     console.log("length", length)
     return length > MAX_CAPTION_LENGTH ? `${caption.substring(0, MAX_CAPTION_LENGTH)}...` : caption;
 }
@@ -29,7 +29,7 @@ const minimizeVideosData = (videos) => {
                 ],
             },
         } = edge.node
-        console.log(edge.nod)
+        console.log(edge.node)
         return {
             isVideo, src, count, date, caption: minimizeCaption(caption)
         };
@@ -45,9 +45,9 @@ const minimizePhotosData = (photos) => {
     }
     return edges.map(edge => {
         const {
-            edge_media_preview_like: { count },
-            thumbnail_src: src,
             is_video: isVideo,
+            thumbnail_src: src,
+            edge_media_preview_like: { count },
             taken_at_timestamp: date,
             edge_media_to_caption: {
                 edges: [
@@ -80,14 +80,14 @@ const getFeedsFromResponse = (response = {}) => {
     const minimVideos = minimizeVideosData(videos);
     const minimPhotos = minimizePhotosData(photos);
     //merge the two array to organise by time stamp
-    return [...minimVideos, ...minimPhotos].sort((a, b) => { b.time - a.time })
+    return [...minimVideos, ...minimPhotos].sort((a, b) => b.time - a.time)
 
 }
 
 
 export const fetchData = async (username, numberOfFeeds, filter) => {
     let feeds;
-    const filter_method = FILTER_METHOD[filter]
+    const filter_method = FILTER_METHODS[filter]
     // console.log(await fetch(ENDPOINT.replace(":username", username)));
     try {
         let response = await fetch(ENDPOINT.replace(":username", username));

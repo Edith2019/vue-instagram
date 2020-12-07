@@ -1,4 +1,4 @@
-import { FETCH_DATA, SET_CURRENT_USER } from './types'
+import { CHANGE_FILTER, FETCH_DATA, SET_CURRENT_USER } from './types'
 
 
 
@@ -9,6 +9,9 @@ export default {
     },
     [SET_CURRENT_USER](state, username) {
         state.currentUser = username;
+    },
+    [CHANGE_FILTER](state, filter) {
+        state.filter = filter
     }
 
 }
