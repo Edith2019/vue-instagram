@@ -3,4 +3,5 @@ export default {
     currentUser: (state) => state.currentUser,
     currentFeedsNumber: (state) => state.currentFeedsNumber,
     currentFilter: (state) => state.filter,
+    loading: (state) => state.loading
 }

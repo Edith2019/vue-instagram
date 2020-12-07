@@ -3,4 +3,5 @@ export default {
     currentUser: null,
     currentFeedsNumber: 0,
     filter: "all",
+    loading: false
 }

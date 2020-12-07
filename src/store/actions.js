@@ -1,7 +1,9 @@
 import {
     FETCH_DATA,
     SET_CURRENT_USER,
-    CHANGE_FILTER
+    CHANGE_FILTER,
+    START_LOADING,
+    STOP_LOADING
 } from './types'
 
 import { fetchData } from '../services/data.service'
@@ -23,7 +25,7 @@ export default {
         }
     },
 
-    async[SET_CURRENT_USER]({ commit }, { username }) {
+    async [SET_CURRENT_USER]({ commit }, { username }) {
         console.log("setcurrentUser", { commit }, { username })
         commit(SET_CURRENT_USER, username)
     },
@@ -36,10 +38,15 @@ export default {
                 username: state.currentUser,
                 numberOfFeeds: state.currentFeedsNumber
             }
-
         })
-    }
+    },
 
+    async [START_LOADING]({ commit }) {
+        commit(START_LOADING);
+    },
+    async [STOP_LOADING]({ commit }) {
+        commit(STOP_LOADING)
+    }
 
 
 

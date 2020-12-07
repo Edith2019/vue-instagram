@@ -1,15 +1,23 @@
 <template>
     <v-container id="main" fluid>
-        <Users />
-        <!-- <Filters /> -->
-        <Search />
-        <List />
+        <v-row>
+            <v-col cols="12">
+                <div class="d-flex justify-start ">
+                    <Users></Users>
+                </div>
+            </v-col>
+            <v-col cols="12">
+                <Search></Search>
+            </v-col>
+            <v-col cols="12">
+                <List></List>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
 <script>
 import Users from "./Users";
-// import Filters from "./Filters";
 import { mapActions } from "vuex";
 import Search from "./Search";
 import List from "./List";
@@ -23,7 +31,6 @@ export default {
     },
     components: {
         Users,
-        // Filters,
         Search,
         List,
     },

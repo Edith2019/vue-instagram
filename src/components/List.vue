@@ -1,7 +1,16 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-row no-gutters>
-            <!-- <slot
+            <v-col cols="12">
+                <v-progress-linear
+                    v-if="loading"
+                    color="blue"
+                    inderterminate
+                    rounded
+                    height="6"
+                ></v-progress-linear>
+            </v-col>
+            <slot
                 v-if="!feeds.length"
                 cols="12"
                 class="d-flex justify-end mb-12"
@@ -9,7 +18,7 @@
                 <v-col cols="12">
                     <NoData></NoData>
                 </v-col>
-            </slot> -->
+            </slot>
 
             <v-col cols="12" class="d-flex justify-end mb-12">
                 <Filters></Filters>
@@ -36,18 +45,18 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import NoData from "./NoData";
+import NoData from "./NoData";
 import ListItem from "./ListItem";
 import Filters from "./Filters";
 
 export default {
     name: "List",
     computed: {
-        ...mapGetters(["feeds"]),
+        ...mapGetters(["feeds", "loading"]),
     },
     components: {
         ListItem,
-        // NoData,
+        NoData,
         Filters,
     },
 };

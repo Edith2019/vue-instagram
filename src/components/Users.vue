@@ -1,15 +1,16 @@
 <template>
-    <v-container>
-        <p>Select the user you want to see the feed</p>
+    <div>
         <v-chip
             v-for="user in users"
             class="ma-2"
+            :text-color="user === currentUser ? 'white' : 'blue'"
+            :color="user === currentUser ? 'blue' : 'white'"
             :key="user"
             @click="fetch_data({ username: user })"
         >
             {{ user }}
         </v-chip>
-    </v-container>
+    </div>
 </template>
 
 <script>
