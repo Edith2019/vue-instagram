@@ -22,6 +22,7 @@ import { FETCH_DATA } from "../store/types";
 export default {
     Name: "Search",
     data: () => ({
+        valid: true,
         username: null,
         numberOfFeeds: null,
     }),

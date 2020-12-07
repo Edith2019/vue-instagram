@@ -1,16 +1,32 @@
 <template>
     <v-container>
-        <slot v-if="!feeds.length" cols="12" class="d-flex justify-end mb-12">
-            <v-col cols="m-12">
-                <NoData></NoData>
-            </v-col>
-        </slot>
-        <slot v-else>
-            <v-col cols="12" class="d-flex justify-end mb-12">
-                <div v-for="feed in feeds" :key="feed.src"></div>
-                <ListItem :item="feed"> </ListItem>
-            </v-col>
-        </slot>
+        <v-row no-gutters>
+            <slot
+                v-if="!feeds.length"
+                cols="12"
+                class="d-flex justify-end mb-12"
+            >
+                <v-col cols="12">
+                    <NoData></NoData>
+                </v-col>
+            </slot>
+            <slot v-else>
+                <v-col
+                    v-for="feed in feeds"
+                    :key="feed.src"
+                    cols="12"
+                    xl="2"
+                    lg="3"
+                    md="4"
+                    sm="6"
+                    xs="12"
+                >
+                    <v-card class="pa-2" flat tile>
+                        <ListItem :item="feed"></ListItem>
+                    </v-card>
+                </v-col>
+            </slot>
+        </v-row>
     </v-container>
 </template>
 
