@@ -11,7 +11,7 @@
                 ></v-progress-linear>
             </v-col>
             <slot
-                v-if="!feeds.length"
+                v-if="!feeds.length && !loading"
                 cols="12"
                 class="d-flex justify-end mb-12"
             >
@@ -19,11 +19,11 @@
                     <NoData></NoData>
                 </v-col>
             </slot>
-
-            <v-col cols="12" class="d-flex justify-end mb-12">
-                <Filters></Filters>
-            </v-col>
-            <slot>
+            <slot v-else>
+                <v-col cols="12" class="d-flex justify-end mb-12">
+                    <Filters></Filters>
+                </v-col>
+                <!-- <slot> -->
                 <v-col
                     v-for="feed in feeds"
                     :key="feed.src"

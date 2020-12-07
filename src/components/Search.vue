@@ -11,7 +11,10 @@
                 label="Number of Feeds"
             ></v-text-field>
         </v-form>
-        <v-btn @click="getFeeds">Get Feeds</v-btn>
+        <v-btn @click="getFeeds" color="blue" class="white--text">
+            <v-icon left dark>mdi-instagram</v-icon>
+            Get Feeds</v-btn
+        >
     </v-container>
 </template>
 

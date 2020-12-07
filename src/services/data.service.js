@@ -1,4 +1,5 @@
 import { ENDPOINT, MAX_CAPTION_LENGTH, FILTER_METHODS } from "../consts"
+import { hasValidCacheEntry, saveInCache, getFromCache } from "./cache.service";
 
 
 // Display 150 Char and replace the rest by...
@@ -90,26 +91,36 @@ export const fetchData = async (username, numberOfFeeds, filter) => {
     const filter_method = FILTER_METHODS[filter]
     // console.log(await fetch(ENDPOINT.replace(":username", username)));
     try {
-        let response = await fetch(ENDPOINT.replace(":username", username));
-        console.log("responser", ENDPOINT)
-        response = await response.json();
 
-        if (response.type === "cors") {
-            console.log("Woops, there has been too many requests, please try again in 1hour")
-            const { error } = "Woops, there has been too many requests, please try again in 1hour"
-            return error
+        if (hasValidCacheEntry(username)) {
+            feeds = getFromCache(username);
+        } else {
+
+            let response = await fetch(ENDPOINT.replace(":username", username));
+            console.log("responser", ENDPOINT)
+            response = await response.json();
+
+
+
+            if (response.type === "cors") {
+                console.log("Woops, there has been too many requests, please try again in 1hour")
+                const { error } = "Woops, there has been too many requests, please try again in 1hour"
+                return error
+            }
+            // response = JSON.parse(response)
+            // response = await response.text()
+            console.log("typeof", typeof (response))
+            console.log("response", response)
+
+            feeds = getFeedsFromResponse(response);
+            saveInCache(username, feeds);
         }
-        // response = JSON.parse(response)
-        // response = await response.text()
-        console.log("typeof", typeof (response))
-        console.log("response", response)
-
-        feeds = getFeedsFromResponse(response);
-
     } catch (err) {
         console.log("error in fetchdata", err)
 
     }
+
+
     console.log("number ofFeeds", Number(numberOfFeeds));
     if (Number(numberOfFeeds) < feeds.length) {
         feeds = feeds.slice(0, numberOfFeeds);
