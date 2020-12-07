@@ -1,6 +1,7 @@
 import {
     FETCH_DATA,
-    SET_CURRENT_USER
+    SET_CURRENT_USER,
+    CHANGE_FILTER
 } from './types'
 
 import { fetchData } from '../services/data.service'
@@ -21,9 +22,22 @@ export default {
             console.log("error in Action Fetch", err)
         }
     },
+
     async[SET_CURRENT_USER]({ commit }, { username }) {
         console.log("setcurrentUser", { commit }, { username })
         commit(SET_CURRENT_USER, username)
+    },
+
+    async [CHANGE_FILTER]({ dispatch, state, commit }, filter) {
+        commit(CHANGE_FILTER, filter);
+        dispatch({
+            type: FETCH_DATA,
+            data: {
+                username: state.currentUser,
+                numberOfFeeds: state.currentFeedsNumber
+            }
+
+        })
     }
 
 

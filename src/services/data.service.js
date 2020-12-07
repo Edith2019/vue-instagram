@@ -1,4 +1,4 @@
-import { ENDPOINT, MAX_CAPTION_LENGTH } from "../consts"
+import { ENDPOINT, MAX_CAPTION_LENGTH, FILTER_METHOD } from "../consts"
 
 
 // Display 150 Char and replace the rest by...
@@ -85,8 +85,9 @@ const getFeedsFromResponse = (response = {}) => {
 }
 
 
-export const fetchData = async (username, numberOfFeeds) => {
+export const fetchData = async (username, numberOfFeeds, filter) => {
     let feeds;
+    const filter_method = FILTER_METHOD[filter]
     // console.log(await fetch(ENDPOINT.replace(":username", username)));
     try {
         let response = await fetch(ENDPOINT.replace(":username", username));
@@ -113,6 +114,5 @@ export const fetchData = async (username, numberOfFeeds) => {
     if (Number(numberOfFeeds) < feeds.length) {
         feeds = feeds.slice(0, numberOfFeeds);
     }
-    return feeds
-
+    return filter_method ? feeds.filter(filter_method) : feeds
 }
