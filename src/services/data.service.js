@@ -1,19 +1,15 @@
 import { ENDPOINT, MAX_CAPTION_LENGTH } from "../consts"
 
 
-
+// Display 150 Char and replace the rest by...
 const minimizeCaption = (caption) => {
-    console.log("caption", caption)
     const length = caption.lenght;
-    console.log("text", length)
     return length > MAX_CAPTION_LENGTH ? `${caption.substring(0, MAX_CAPTION_LENGTH)}...` : caption;
 }
 
-console.log(minimizeCaption)
-
+//Take the relevant data from the response about video
 const minimizeVideosData = (videos) => {
     const { edges } = videos
-    console.log("edges in video", edges)
     if (!edges) {
         throw Error('bad data in minimizeVideo')
     }
@@ -39,13 +35,12 @@ const minimizeVideosData = (videos) => {
 
 };
 
-
+//Take the relevant data from the response about photos
 const minimizePhotosData = (photos) => {
     const { edges } = photos
     if (!edges) {
         throw Error("bad data in photos")
     }
-
     return edges.map(edge => {
         const {
             edge_liked_by: { count },
@@ -66,14 +61,12 @@ const minimizePhotosData = (photos) => {
     })
 }
 
+
+
 const getFeedsFromResponse = (response = {}) => {
     const {
         graphql: { user },
     } = response;
-
-
-    console.log("response graphql", response)
-
     if (!user) {
         throw Error("bad response")
     } else {
@@ -82,42 +75,28 @@ const getFeedsFromResponse = (response = {}) => {
             edge_owner_to_timeline_media: photos,
         } = user
 
-        console.log("user.video", videos)
-        console.log("photos", photos)
-
-        console.log("user", user)
-
         const minimVideos = minimizeVideosData(videos);
         const minimPhotos = minimizePhotosData(photos);
+        //merge the two array to organise by time stamp
         return [...minimVideos, ...minimPhotos].sort((a, b) => { b.time - a.time })
-
     }
 }
 
-// console.log("getFeedfromrepsonse", getFeedsFromResponse)
 
 export const fetchData = async (username, numberOfFeeds) => {
     let feeds;
-    console.log("username", username)
-
     let response = await fetch(ENDPOINT.replace(":username", username));
-
-
     console.log(ENDPOINT.replace(":username", username));
-    // console.log("responser", JSON.parse({ response }))
 
-    // response = await response.json();
+    response = await response.json();
     // response = JSON.parse(response)
-    response = await response.text()
+    // response = await response.text()
     console.log("typeof", typeof (response))
     console.log("response", response)
 
     feeds = getFeedsFromResponse(response);
 
-    console.log("feeds", feeds)
     console.log("number ofFeeds", Number(numberOfFeeds));
-
-
     if (Number(numberOfFeeds) < feeds.length) {
         feeds = feeds.slice(0, numberOfFeeds);
     }
