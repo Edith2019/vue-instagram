@@ -102,13 +102,16 @@ export const fetchData = async (username, numberOfFeeds) => {
 
     let response = await fetch(ENDPOINT.replace(":username", username));
 
-    console.log("typeof", typeof (response))
 
     console.log(ENDPOINT.replace(":username", username));
     // console.log("responser", JSON.parse({ response }))
 
-    response = await response.json();
+    // response = await response.json();
     // response = JSON.parse(response)
+    response = await response.text()
+    console.log("typeof", typeof (response))
+    console.log("response", response)
+
     feeds = getFeedsFromResponse(response);
 
     console.log("feeds", feeds)

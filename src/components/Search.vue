@@ -26,7 +26,7 @@ export default {
         numberOfFeeds: null,
     }),
     computed: {
-        ...mapGetters(["currentUser"]),
+        ...mapGetters(["currentUser", "currentFeedsNumber"]),
     },
     methods: {
         ...mapActions([FETCH_DATA]),
@@ -40,6 +40,9 @@ export default {
     watch: {
         currentUser: function(val) {
             this.username = val;
+        },
+        currentFeedsNumber: function(val) {
+            this.numberOfFeeds = val;
         },
     },
 };
