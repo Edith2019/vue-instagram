@@ -14,12 +14,12 @@ export default {
 
     async [FETCH_DATA]({ dispatch, commit, state }, payload) {
         try {
-            console.log("payload", payload)
+            // console.log("payload", payload)
             const { username, numberOfFeeds } = payload.data ? payload.data : payload;
             dispatch({ type: START_LOADING })
             dispatch({ type: SET_CURRENT_USER, username })
             const feeds = await fetchData(username, numberOfFeeds, state.filter)
-            console.log("feeds", feeds)
+            // console.log("feeds", feeds)
             commit(FETCH_DATA, feeds)
         }
         catch (err) {
@@ -31,7 +31,7 @@ export default {
     },
 
     async [SET_CURRENT_USER]({ commit }, { username }) {
-        console.log("setcurrentUser", { commit }, { username })
+        // console.log("setcurrentUser", { commit }, { username })
         commit(SET_CURRENT_USER, username)
     },
 

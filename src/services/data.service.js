@@ -107,10 +107,7 @@ export const fetchData = async (username, numberOfFeeds, filter) => {
                 const { error } = "Woops, there has been too many requests, please try again in 1hour"
                 return error
             }
-            // response = JSON.parse(response)
-            // response = await response.text()
-            console.log("typeof", typeof (response))
-            console.log("response", response)
+
 
             feeds = getFeedsFromResponse(response);
             saveInCache(username, feeds);

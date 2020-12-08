@@ -1,5 +1,11 @@
 <template>
-    <v-container>
+    <v-lazy
+        :options="{
+            threshold: 0.9,
+        }"
+        min-height="200"
+        transition="fade-transition"
+    >
         <v-card
             v-if="item"
             class="mx-auto my-12"
@@ -27,7 +33,7 @@
                 <div class="desc">{{ item.caption }}</div>
             </v-card-text>
         </v-card>
-    </v-container>
+    </v-lazy>
 </template>
 
 <script>
